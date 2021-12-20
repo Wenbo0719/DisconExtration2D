@@ -124,15 +124,13 @@ if __name__ == "__main__":
     blur = cv2.GaussianBlur(img,(5,5),0)                               # Gaussian Blur
     ret,thresh = cv2.threshold(blur,60,255,cv2.THRESH_BINARY)          # Binary Threshold
     kernel = np.ones((5, 5), np.uint8)
-    opening = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
-    opening = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel)       # Twice Opening Operation
+    opening = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)        # Opening Operation
     iThin = Xihua(opening, array)                                      # Extract the Skeleton
 
     cv2.imwrite("blur.png", blur)                                      # write the image
     cv2.imwrite("thresh.png", thresh)
     cv2.imwrite("opening.png", opening)
     cv2.imwrite("thin.png",iThin)
-
 
     img_skeleton = cv2.imread("thin.png")                              # read the skeleton image
     Hough_Transform(img_skeleton, img_back)                            # applying the hough transform
